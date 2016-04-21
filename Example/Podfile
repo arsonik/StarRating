@@ -1,0 +1,7 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'StarRatingExample' do
+    pod 'StarRating', :path => "../"
+    pod 'PureLayout', :git => "https://github.com/PureLayout/PureLayout.git"
+end

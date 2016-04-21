@@ -1,0 +1,27 @@
+PODS:
+  - PureLayout (3.0.1)
+  - StarRating (0.1.0):
+    - PureLayout (~> 3.0.1)
+
+DEPENDENCIES:
+  - PureLayout (from `https://github.com/PureLayout/PureLayout.git`)
+  - StarRating (from `../`)
+
+EXTERNAL SOURCES:
+  PureLayout:
+    :git: https://github.com/PureLayout/PureLayout.git
+  StarRating:
+    :path: "../"
+
+CHECKOUT OPTIONS:
+  PureLayout:
+    :commit: 865e86a47d3f34a1561ce1f18b852ab4bb9ea732
+    :git: https://github.com/PureLayout/PureLayout.git
+
+SPEC CHECKSUMS:
+  PureLayout: 3776d602389d93977b4a4431f1b5cb0e0eed2524
+  StarRating: a50ad3849187243970521158bb1e12ece5840fd8
+
+PODFILE CHECKSUM: 19d9e71499ea1d2d8850bfe8c77896f2775c91b4
+
+COCOAPODS: 1.0.0.beta.8

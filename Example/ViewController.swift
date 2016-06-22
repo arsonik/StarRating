@@ -24,7 +24,7 @@ class ViewController: UIViewController, RatingViewControllerDelegate {
 		presentViewController(rating, animated: true, completion: nil)
 	}
 
-	func ratingViewControllerDidRate(controller: RatingViewController, rate: Int) {
+	func ratingViewControllerDidRate(_ controller: RatingViewController, rate: Int) {
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
 
@@ -34,15 +34,15 @@ class ViewController: UIViewController, RatingViewControllerDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-			guard let data = NSData(contentsOfURL: NSURL(string: "https://www.teslamotors.com/sites/default/files/images/homepage/home_hero_auto3.jpg?cache1")!) else {
+		DispatchQueue.global(attributes: DispatchQueue.GlobalAttributes.qosDefault).async {
+			guard let data = try? Data(contentsOf: URL(string: "https://www.teslamotors.com/sites/default/files/images/homepage/home_hero_auto3.jpg?cache1")!) else {
 				return
 			}
 			let image = UIImageView(image: UIImage(data: data))
-			image.contentMode = .ScaleAspectFill
+			image.contentMode = .scaleAspectFill
 
-			dispatch_async(dispatch_get_main_queue()) {
-				self.view.insertSubview(image, atIndex: 0)
+			DispatchQueue.main.async {
+				self.view.insertSubview(image, at: 0)
 				image.autoPinEdgesToSuperviewEdges()
 			}
 		}

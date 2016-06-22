@@ -103,12 +103,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 170A2EAB1CC91D9700F9A9E7 /* Build configuration list for PBXNativeTarget "StarRatingExample" */;
 			buildPhases = (
-				8B794311EFB2AEFAD00D0751 /* 📦 Check Pods Manifest.lock */,
+				8B794311EFB2AEFAD00D0751 /* [CP] Check Pods Manifest.lock */,
 				170A2E991CC91D9700F9A9E7 /* Sources */,
 				170A2E9A1CC91D9700F9A9E7 /* Frameworks */,
 				170A2E9B1CC91D9700F9A9E7 /* Resources */,
-				F9D622C8115C43CC9A03019C /* 📦 Embed Pods Frameworks */,
-				38F379C3FDDCB4B8C66FFD13 /* 📦 Copy Pods Resources */,
+				F9D622C8115C43CC9A03019C /* [CP] Embed Pods Frameworks */,
+				38F379C3FDDCB4B8C66FFD13 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -126,11 +126,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Arsonik;
 				TargetAttributes = {
 					170A2E9C1CC91D9700F9A9E7 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -164,14 +165,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		38F379C3FDDCB4B8C66FFD13 /* 📦 Copy Pods Resources */ = {
+		38F379C3FDDCB4B8C66FFD13 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,14 +180,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-StarRatingExample/Pods-StarRatingExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8B794311EFB2AEFAD00D0751 /* 📦 Check Pods Manifest.lock */ = {
+		8B794311EFB2AEFAD00D0751 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -194,14 +195,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F9D622C8115C43CC9A03019C /* 📦 Embed Pods Frameworks */ = {
+		F9D622C8115C43CC9A03019C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -239,12 +240,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 858C828B0BD4AFE41A7B1AE4 /* Pods-StarRatingExample.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.arsonik.StarRatingExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
@@ -253,11 +256,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1297439D5F5E7D845239BCBE /* Pods-StarRatingExample.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.arsonik.StarRatingExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;

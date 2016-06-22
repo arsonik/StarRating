@@ -10,8 +10,8 @@ import UIKit
 import PureLayout
 
 @objc public protocol RatingViewControllerDelegate: class {
-	optional func ratingViewControllerWillDisappear(controller: RatingViewController)
-	func ratingViewControllerDidRate(controller: RatingViewController, rate: Int)
+	@objc optional func ratingViewControllerWillDisappear(_ controller: RatingViewController)
+	func ratingViewControllerDidRate(_ controller: RatingViewController, rate: Int)
 }
 
 public class RatingViewController: UIViewController {
@@ -24,8 +24,8 @@ public class RatingViewController: UIViewController {
 	public var starFontSize: CGFloat = 100
 	public var cornerRadius: CGFloat = 10
 
-	public var selectedColor = UIColor.blackColor()
-	public var notSelectedColor = UIColor.whiteColor()
+	public var selectedColor = UIColor.black()
+	public var notSelectedColor = UIColor.white()
 
 	public let titleLabel = UILabel()
 	public let subtitleLabel = UILabel()
@@ -41,16 +41,16 @@ public class RatingViewController: UIViewController {
 
 	private lazy var buttons: [UIButton] = {
 		return (0..<self.numberOfStars).flatMap {_ in
-			let button = UIButton(type: .Custom)
+			let button = UIButton(type: .custom)
 			button.contentEdgeInsets = UIEdgeInsetsZero
-			button.titleLabel?.font = UIFont.systemFontOfSize(self.starFontSize)
+			button.titleLabel?.font = UIFont.systemFont(ofSize: self.starFontSize)
 			button.layer.cornerRadius = self.cornerRadius
 			button.layer.masksToBounds = true
 			return button
 		}
 	}()
 
-	override public func viewWillDisappear(animated: Bool) {
+	override public func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 
 		delegate?.ratingViewControllerWillDisappear?(self)
@@ -60,8 +60,8 @@ public class RatingViewController: UIViewController {
 		super.viewDidLoad()
 
 		// backdrop
-		let vev = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-		view.insertSubview(vev, atIndex: 0)
+		let vev = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+		view.insertSubview(vev, at: 0)
 		vev.autoPinEdgesToSuperviewEdges()
 
 
@@ -69,32 +69,32 @@ public class RatingViewController: UIViewController {
 		let container = UIView()
 		view.addSubview(container)
 		container.autoCenterInSuperview()
-		titleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleHeadline)
-		subtitleLabel.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+		titleLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleHeadline)
+		subtitleLabel.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleSubheadline)
 
 		[titleLabel, subtitleLabel].forEach {
 			container.addSubview($0)
-			$0.autoAlignAxisToSuperviewAxis(.Vertical)
+			$0.autoAlignAxis(toSuperviewAxis: .vertical)
 		}
 
-		titleLabel.autoPinEdgeToSuperviewEdge(.Top)
-		subtitleLabel.autoPinEdge(.Top, toEdge: .Bottom, ofView: titleLabel, withOffset: 20)
+		titleLabel.autoPinEdge(toSuperviewEdge: .top)
+		subtitleLabel.autoPinEdge(.top, to: .bottom, of: titleLabel, withOffset: 20)
 
-		buttons.enumerate().forEach { index, button in
+		buttons.enumerated().forEach { index, button in
 			container.addSubview(button)
-			button.autoPinEdge(.Top, toEdge: .Bottom, ofView: subtitleLabel, withOffset: 20)
-			button.autoPinEdgeToSuperviewMargin(.Bottom)
+			button.autoPinEdge(.top, to: .bottom, of: subtitleLabel, withOffset: 20)
+			button.autoPinEdge(toSuperviewMargin: .bottom)
 
 			if button == buttons.first {
-				button.autoPinEdge(.Leading, toEdge: .Leading, ofView: container)
+				button.autoPinEdge(.leading, to: .leading, of: container)
 			} else {
-				button.autoPinEdge(.Leading, toEdge: .Trailing, ofView: buttons[index-1], withOffset: self.starsSpacing)
+				button.autoPinEdge(.leading, to: .trailing, of: buttons[index-1], withOffset: self.starsSpacing)
 			}
 			if button == buttons.last {
-				button.autoPinEdge(.Trailing, toEdge: .Trailing, ofView: container)
+				button.autoPinEdge(.trailing, to: .trailing, of: container)
 			}
 
-			button.addTarget(self, action: #selector(RatingViewController.selectStar(_:)), forControlEvents: UIControlEvents.PrimaryActionTriggered)
+			button.addTarget(self, action: #selector(RatingViewController.selectStar(_:)), for: UIControlEvents.primaryActionTriggered)
 		}
 
 		update()
@@ -104,30 +104,30 @@ public class RatingViewController: UIViewController {
 		return buttons[max(0, rate-1)]
 	}
 
-	@IBAction func selectStar(button: UIButton) {
-		rate = buttons.indexOf(button)! + 1
+	@IBAction func selectStar(_ button: UIButton) {
+		rate = buttons.index(of: button)! + 1
 		delegate?.ratingViewControllerDidRate(self, rate: rate)
 	}
 
-	override public func didUpdateFocusInContext(context: UIFocusUpdateContext, withAnimationCoordinator coordinator: UIFocusAnimationCoordinator) {
+	override public func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
 		if let button = context.previouslyFocusedView as? UIButton {
-			button.backgroundColor = UIColor.clearColor()
+			button.backgroundColor = UIColor.clear()
 		}
 		if let button = context.nextFocusedView as? UIButton {
-			button.backgroundColor = UIColor.whiteColor()
-			rate = buttons.indexOf(button)! + 1
+			button.backgroundColor = UIColor.white()
+			rate = buttons.index(of: button)! + 1
 			update()
 		}
 	}
 
 	func update() {
 		(0..<min(rate, numberOfStars)).forEach { i in
-			buttons[i].setTitle(self.selectedStarText, forState: .Normal)
-			buttons[i].setTitleColor(self.selectedColor, forState: .Normal)
+			buttons[i].setTitle(self.selectedStarText, for: UIControlState())
+			buttons[i].setTitleColor(self.selectedColor, for: UIControlState())
 		}
 		(rate..<numberOfStars).forEach { i in
-			buttons[i].setTitle(self.notSelectedStarText, forState: .Normal)
-			buttons[i].setTitleColor(self.notSelectedColor, forState: .Normal)
+			buttons[i].setTitle(self.notSelectedStarText, for: UIControlState())
+			buttons[i].setTitleColor(self.notSelectedColor, for: UIControlState())
 		}
 	}
 }
